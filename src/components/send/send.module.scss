@@ -1,0 +1,28 @@
+.sendForm {
+  flex: 0 0 auto;
+  height: 2.5em;
+  & :focus {
+    outline: none;
+  }
+  & :active {
+    outline: none;
+  }
+  & .message {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    border: 0.2em solid black;
+    border-radius: 1em;
+    padding: 0 0.7em;
+    font-size: 1em;
+  }
+  & .userName {
+    box-sizing: border-box;
+    height: 2em;
+    width: 5em;
+    border: 0.2em solid black;
+    border-radius: 1em;
+    padding: 0 0.7em;
+    font-size: 1em;
+  }
+}
