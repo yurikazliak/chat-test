@@ -26,7 +26,7 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
+    componentDidMount() {
     this.socket.onmessage = (e) => {
       this.setState({
         messages: JSON.parse(e.data).concat(this.state.messages)
@@ -35,11 +35,11 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.messages[0])
     return (
       <Layout>
         <List messages={this.state.messages} />
-        <Send sendMessage={this.sendMessage} />
+        <Send 
+        sendMessage={this.sendMessage} />
       </Layout>
     );
   }

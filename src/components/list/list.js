@@ -6,11 +6,13 @@ import listStyles from './list.module.scss';
 const List = ({ messages }) => {
   return (
     <ul className={listStyles.list}>
-      {messages.map((message, i) => {
+      {messages.sort((a, b) => {
+        return a.time < b.time ? -1 : 1;
+      }).map((message, i) => {
         return (
           <li
             key={message.id}
-            className={i === 0 ? listStyles.messageNew : listStyles.messageBlock}
+            className={i === messages.length - 1 ? listStyles.messageNew : listStyles.messageBlock}
           >
             <div className={listStyles.from}>
               {message.from}
@@ -29,7 +31,6 @@ const List = ({ messages }) => {
             <div className={listStyles.text}>
               {message.message}
             </div>
-
           </li>
         )
       })}
