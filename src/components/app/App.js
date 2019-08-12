@@ -11,33 +11,33 @@ class App extends Component {
       open: false,
       connected: false,
     }
-    this.socket = new WebSocket('ws://st-chat.shas.tel');
-    this.socket.onopen = () => {
-      this.setState({
-        connected: true,
-      })
-    }
-    this.sendMessage = this.sendMessage.bind(this)
+    // this.socket = new WebSocket('ws://st-chat.shas.tel');
+    // this.socket.onopen = () => {
+    //   this.setState({
+    //     connected: true,
+    //   })
+    // }
+    // this.sendMessage = this.sendMessage.bind(this)
   }
 
   sendMessage(message) {
     if (this.state.connected) {
-      this.socket.send(JSON.stringify({ from: 'pampers', message: `${message}` }))
+      // this.socket.send(JSON.stringify({ from: 'pampers', message: `${message}` }))
     }
   }
 
     componentDidMount() {
-    this.socket.onmessage = (e) => {
-      this.setState({
-        messages: JSON.parse(e.data).concat(this.state.messages)
-      })
-    }
+    // this.socket.onmessage = (e) => {
+    //   this.setState({
+    //     messages: JSON.parse(e.data).concat(this.state.messages)
+    //   })
+    // }
   }
 
   render() {
     return (
       <Layout>
-        <List messages={this.state.messages} />
+        <List />
         <Send 
         sendMessage={this.sendMessage} />
       </Layout>

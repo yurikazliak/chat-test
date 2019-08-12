@@ -1,5 +1,6 @@
 import React from 'react';
 import { DateTime } from "luxon";
+import { connect } from 'react-redux';
 
 import listStyles from './list.module.scss';
 
@@ -38,4 +39,10 @@ const List = ({ messages }) => {
   )
 }
 
-export default List;
+const mapStateProps = (state) => {
+  return {
+    messages: state.connection.messages,
+  }
+};
+
+export default connect(mapStateProps)(List);

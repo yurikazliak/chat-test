@@ -1,5 +1,6 @@
-export const connected = () => ({
-  type: 'SOCKETS_CONNECTING'
+export const connected = ({ messages = [] } = {}) => ({
+  type: 'SOCKETS_CONNECTING',
+  messages
 })
 
 export const disconnected = () => ({

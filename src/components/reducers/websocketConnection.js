@@ -1,5 +1,5 @@
 const defaultConnection = {
-  message: 'Just created',
+  messages: [],
   connected: false
 };
 
@@ -7,13 +7,12 @@ export default (state = defaultConnection, action = {}) => {
   switch (action.type) {
     case 'SOCKETS_CONNECTING':
       return Object.assign({}, state, {
-        message: 'Connecting...',
-        connected: false
+        messages: action.messages.concat(state.messages),
+        connected: true
       });
     case 'SOCKETS_DISCONNECTING':
       return Object.assign({}, state, {
-        message: 'Disconnecting...',
-        connected: true
+        connected: false
       });
     default:
       return state;

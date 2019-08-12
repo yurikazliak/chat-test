@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import laoyoutStyle from './layout.module.scss';
 import UserName from '../userName/userName';
+import ConnectionButtons from '../connectionButton/connectionButton';
 
 const laoyout = (props) => {
   const { children } = props;
@@ -13,6 +14,7 @@ const laoyout = (props) => {
         <header>
           <h3>Hello, {user} !</h3>
           <UserName />
+          <ConnectionButtons />
         </header>
         <div className={laoyoutStyle.content}>
           {children}

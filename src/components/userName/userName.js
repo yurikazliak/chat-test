@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import { setUserName } from '../actions/setUserName';
 
 class UserName extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
+  
   handleChange(e) {
     this.props.dispatch(setUserName({ userName: e.target.value }));
     localStorage.setItem('chatUserName', e.target.value);
@@ -19,7 +15,7 @@ class UserName extends Component {
     return (
       <input
         type="text"
-        onChange={this.handleChange}
+        onChange={this.handleChange.bind(this)}
         value={this.props.user}
       ></input>
     )
