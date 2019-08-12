@@ -1,13 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import laoyoutStyle from './layout.module.scss';
+import UserName from '../userName/userName';
 
-const laoyout = ({ children }) => {
+const laoyout = (props) => {
+  const { children } = props;
+  const { user } = props;
   return (
     <>
       <div className={laoyoutStyle.container}>
         <header>
-          <h3>Hello! This is my chat</h3>
+          <h3>Hello, {user} !</h3>
+          <UserName />
         </header>
         <div className={laoyoutStyle.content}>
           {children}
@@ -22,4 +27,10 @@ const laoyout = ({ children }) => {
   )
 }
 
-export default laoyout;
+const mapStateProps = (state) => {
+  return {
+    user: state.user,
+  }
+};
+
+export default connect(mapStateProps)(laoyout);
