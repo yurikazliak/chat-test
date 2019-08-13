@@ -8,18 +8,19 @@ import { connected } from '../actions/connectionStatus';
 import Layout from '../layout/layout';
 import List from '../list/list';
 import Send from '../send/send';
+import Notifications from '../notifications';
 class App extends Component {
   constructor() {
     super()
-    this.state = {
-      messages: [],
-      open: false,
-      connected: false,
-    }
-    // this.socket = new ReconnectingWebSocket('ws://st-chat.shas.tel', null, { debug: true, reconnectInterval: 3000 });
+    // this.state = {
+    //   messages: [],
+    //   open: false,
+    //   connected: false,
+    // }
+    // this.socket = new ReconnectingWebSocket('ws://st-chat.shas.tel', null, { debug: false, reconnectInterval: 3000 });
     this.socket = new WebSocket('ws://st-chat.shas.tel');
-     this.socket.onopen = () => {
-       this.props.dispatch(connected());
+    this.socket.onopen = () => {
+      this.props.dispatch(connected());
     }
     this.socket.onmessage = (e) => {
       this.props.dispatch(getMessages({ messages: JSON.parse(e.data) }));
@@ -39,7 +40,7 @@ class App extends Component {
   // }
 
   componentDidMount() {
-      // this.socket.send(JSON.stringify({ from: this.props.user, message: this.props.sendMessage }))
+    // this.socket.send(JSON.stringify({ from: this.props.user, message: this.props.sendMessage }))
     // this.socket.onmessage = (e) => {
     //   this.setState({
     //     messages: JSON.parse(e.data).concat(this.state.messages)
@@ -50,6 +51,7 @@ class App extends Component {
   render() {
     return (
       <Layout>
+        <Notifications />
         <List />
         <Send socket={this.socket} />
       </Layout>

@@ -6,9 +6,8 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 
 import listStyles from './list.module.scss';
 
-const List = ({ messages }) => {
-  // console.log('messages', messages)
-
+const List = (props) => {
+  const { messages, user } = props;
   const ROOT_CSS = css({
     height: '100%',
     width: '100%'
@@ -17,34 +16,37 @@ const List = ({ messages }) => {
   return (
     <ul className={listStyles.list}>
       <ScrollToBottom className={ROOT_CSS}>
-        {messages.sort((a, b) => {
-          return a.time < b.time ? -1 : 1;
-        }).map((message, i) => {
-          return (
-            <li
-              key={message.id}
-              className={i === messages.length - 1 ? listStyles.messageNew : listStyles.messageBlock}
-            >
-              <div className={listStyles.from}>
-                {message.from}
-              </div>
-              <span className={listStyles.time}>
-                <>
-                  {DateTime.fromMillis(message.time).c.year}-
+        {messages
+          .sort((a, b) => {
+            return a.time < b.time ? -1 : 1;
+          })
+          // .slice(-200)
+          .map((message) => {
+            return (
+              <li
+                key={message.id}
+                className={message.from === user ? listStyles.messageNew : listStyles.messageBlock}
+              >
+                <div className={listStyles.from}>
+                  {message.from}
+                </div>
+                <span className={listStyles.time}>
+                  <>
+                    {DateTime.fromMillis(message.time).c.year}-
               {DateTime.fromMillis(message.time).c.month}-
               {DateTime.fromMillis(message.time).c.day}
-                  {'   '}
-                  {DateTime.fromMillis(message.time).c.hour}-
+                    {'   '}
+                    {DateTime.fromMillis(message.time).c.hour}-
               {DateTime.fromMillis(message.time).c.minute}-
               {DateTime.fromMillis(message.time).c.second}
-                </>
-              </span>
-              <div className={listStyles.text}>
-                {message.message}
-              </div>
-            </li>
-          )
-        })}
+                  </>
+                </span>
+                <div className={listStyles.text}>
+                  {message.message}
+                </div>
+              </li>
+            )
+          })}
       </ScrollToBottom>
     </ul>
   )
@@ -54,6 +56,7 @@ const mapStateProps = (state) => {
   return {
     // messages: state.connection.messages,
     messages: state.messages,
+    user: state.user,
   }
 };
 

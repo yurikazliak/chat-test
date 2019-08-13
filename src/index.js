@@ -12,7 +12,6 @@ const store = configureStore;
 
 store.subscribe(() => {
   console.log('from index.js', store.getState());
-
 })
 
 const jsx = (
