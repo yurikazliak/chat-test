@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import listStyles from './list.module.scss';
 
 const List = ({ messages }) => {
+  console.log('messages', messages)
   return (
     <ul className={listStyles.list}>
       {messages.sort((a, b) => {
@@ -41,7 +42,8 @@ const List = ({ messages }) => {
 
 const mapStateProps = (state) => {
   return {
-    messages: state.connection.messages,
+    // messages: state.connection.messages,
+    messages: state.messages,
   }
 };
 

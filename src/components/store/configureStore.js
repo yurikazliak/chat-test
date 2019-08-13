@@ -1,11 +1,15 @@
 import { createStore, combineReducers } from 'redux';
 
 import userNameReducer from '../reducers/setUserName';
-import websocketConnection from '../reducers/websocketConnection';
+import userMessageReducer from '../reducers/userMessage';
+import getMessagesReducer from '../reducers/getMessages';
+import connectionStatus from '../reducers/connectionStatus';
 
 export default createStore(
   combineReducers({
     user: userNameReducer,
-    connection: websocketConnection,
+    userMessage: userMessageReducer,
+    messages: getMessagesReducer,
+    connected: connectionStatus,
   })
 );

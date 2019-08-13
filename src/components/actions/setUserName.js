@@ -1,4 +1,4 @@
-export const setUserName = ({ userName = ''} = {}) => ({
+export const setUserName = ({ userName = 'user'} = {}) => ({
   type: 'SET_USERNAME',
   userName
 })

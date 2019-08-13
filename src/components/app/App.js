@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import ReconnectingWebSocket from 'reconnecting-websocket';
+import { connect } from 'react-redux';
 
+// import { connected, disconnected } from '../actions/websocketConnetion';
+import { getMessages } from '../actions/getMessages';
+import { connected } from '../actions/connectionStatus';
 import Layout from '../layout/layout';
 import List from '../list/list';
 import Send from '../send/send';
@@ -11,7 +16,14 @@ class App extends Component {
       open: false,
       connected: false,
     }
-    // this.socket = new WebSocket('ws://st-chat.shas.tel');
+    // this.socket = new ReconnectingWebSocket('ws://st-chat.shas.tel', null, { debug: true, reconnectInterval: 3000 });
+    this.socket = new WebSocket('ws://st-chat.shas.tel');
+     this.socket.onopen = () => {
+       this.props.dispatch(connected());
+    }
+    this.socket.onmessage = (e) => {
+      this.props.dispatch(getMessages({ messages: JSON.parse(e.data) }));
+    }
     // this.socket.onopen = () => {
     //   this.setState({
     //     connected: true,
@@ -20,13 +32,14 @@ class App extends Component {
     // this.sendMessage = this.sendMessage.bind(this)
   }
 
-  sendMessage(message) {
-    if (this.state.connected) {
-      // this.socket.send(JSON.stringify({ from: 'pampers', message: `${message}` }))
-    }
-  }
+  // sendMessage(message) {
+  //   if (this.state.connected) {
+  //     this.socket.send(JSON.stringify({ from: 'pampers', message: `${message}` }))
+  //   }
+  // }
 
-    componentDidMount() {
+  componentDidMount() {
+      // this.socket.send(JSON.stringify({ from: this.props.user, message: this.props.sendMessage }))
     // this.socket.onmessage = (e) => {
     //   this.setState({
     //     messages: JSON.parse(e.data).concat(this.state.messages)
@@ -38,11 +51,20 @@ class App extends Component {
     return (
       <Layout>
         <List />
-        <Send 
-        sendMessage={this.sendMessage} />
+        <Send socket={this.socket} />
       </Layout>
     );
   }
 }
 
-export default App;
+const mapStateProps = (state) => {
+  return {
+    // sendMessage: state.userMessage.sendMessage,
+    // connection: state.connection,
+    user: state.user,
+    messages: state.messages,
+
+  }
+};
+
+export default connect(mapStateProps)(App);

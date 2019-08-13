@@ -1,4 +1,4 @@
-const defaultUserName = localStorage.getItem('chatUserName') !== null ? localStorage.getItem('chatUserName') : '';
+const defaultUserName = localStorage.getItem('chatUserName') !== null ? localStorage.getItem('chatUserName') : 'user';
 
 export default (state = defaultUserName, action) => {
   switch (action.type) {

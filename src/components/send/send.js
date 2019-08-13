@@ -1,47 +1,46 @@
-import React, { Component } from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 
 import sendStyle from './send.module.scss';
+import { userMessage, sendMessage } from '../actions/userMessage';
 
-class Send extends Component {
-  constructor() {
-    super()
-    this.state = {
-      message: '',
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+const Send = (props) => {
+// console.log('send', props.socket)
+  const handleChange = (e) => {
+    props.dispatch(userMessage({ userMessage: e.target.value }));
   }
 
-  handleChange(e) {
-    this.setState({
-      message: e.target.value,
-    })
-  }
-
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.sendMessage(this.state.message);
-    this.setState({
-      message: '',
-    })
+    // props.dispatch(sendMessage({ sendMessage: props.userMessage }));
+    props.dispatch(userMessage({ userMessage: '' }));
+    if (props.connected) {
+      props.socket.send(JSON.stringify({ from: props.user, message: props.userMessage }))
+    }
   }
+  
+  return (
+    <form
+      className={sendStyle.sendForm}
+      onSubmit={handleSubmit}
+    >
+      <input
+        className={sendStyle.message}
+        onChange={handleChange}
+        value={props.userMessage}
+        placeholder='Enter your message'
+        type='text' />
+    </form>
+  )
+}
 
-  render() {
-    return (
-      <form
-        className={sendStyle.sendForm}
-        onSubmit={this.handleSubmit}
-      >
-        <input
-          className={sendStyle.message}
-          onChange={this.handleChange}
-          value={this.state.message}
-          placeholder='Enter your message'
-          type='text' />
-      </form>
-    )
+const mapStateToProps = (state) => {
+  return {
+    // sendMessage: state.userMessage.sendMessage,
+    userMessage: state.userMessage,
+    user: state.user,
+    connected: state.connected,
   }
 }
 
-export default Send;
+export default connect(mapStateToProps)(Send);
