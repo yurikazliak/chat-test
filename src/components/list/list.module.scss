@@ -2,24 +2,25 @@
   box-sizing: border-box;
   flex: 1 0 auto;
   height: 80vh;
-  overflow-y: scroll;
-   & .messageNew {
+  word-break: break-all;
+  /* overflow-y: scroll; */
+  & .messageNew {
+    // overflow-x: hidden;
     margin: 0.7em 0.5em;
     border-top: 0.5em;
     border-bottom: 0.3em;
     border-radius: 0.8em;
     border-color: green;
     & .from {
-      display: inline-block;
       margin: 0 0.4em;
       font-size: 0.9em;
       padding: 0.1em 0.4em;
       border-radius: 1em;
       background-color: rgb(120, 218, 172);
+      float: right;
     }
     & .time {
       font-size: 0.5em;
-      float: right;
       margin-top: 1.7em;
       margin-right: 1em;
     }
@@ -30,9 +31,11 @@
       margin: 0.3em 0;
       padding: 0 0.4em;
       overflow: hidden;
+      text-align: right;
     }
   }
   & .messageBlock {
+    // overflow-x: hidden;
     margin: 0.7em 0.5em;
     border-top: 0.5em;
     border-bottom: 0.3em;
