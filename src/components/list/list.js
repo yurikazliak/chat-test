@@ -55,7 +55,7 @@ const List = (props) => {
 const mapStateProps = (state) => {
   return {
     // messages: state.connection.messages,
-    messages: state.messages,
+    messages: state.messages.messages,
     user: state.user,
   }
 };
