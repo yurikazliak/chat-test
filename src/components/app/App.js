@@ -23,7 +23,7 @@ class App extends Component {
     //   open: false,
     //   connected: false,
     // }
-    this.socket = new ReconnectingWebSocket('ws://st-chat.shas.tel', null, { debug: false, reconnectInterval: 3000 });
+    this.socket = new ReconnectingWebSocket('wss://wssproxy.herokuapp.com/', null, { debug: false, reconnectInterval: 3000 });
     // this.socket = new WebSocket('ws://st-chat.shas.tel');
     this.socket.onopen = () => {
       this.props.dispatch(connected());
