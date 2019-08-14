@@ -2,9 +2,10 @@
   box-sizing: border-box;
   flex: 1 0 auto;
   height: 80vh;
+  word-break: break-all;
   /* overflow-y: scroll; */
   & .messageNew {
-    overflow-x: hidden;
+    // overflow-x: hidden;
     margin: 0.7em 0.5em;
     border-top: 0.5em;
     border-bottom: 0.3em;
@@ -34,7 +35,7 @@
     }
   }
   & .messageBlock {
-    overflow-x: hidden;
+    // overflow-x: hidden;
     margin: 0.7em 0.5em;
     border-top: 0.5em;
     border-bottom: 0.3em;

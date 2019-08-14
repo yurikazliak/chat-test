@@ -10,9 +10,31 @@ const store = configureStore;
 
 // store.dispatch(setUserName( { userName: 'bob' } ))
 
-store.subscribe(() => {
-  console.log('from index.js', store.getState());
-})
+// store.subscribe(() => {
+//   console.log('from index.js', store.getState());
+// })
+
+function select(state) {
+  // return state.messages.messages
+  return state.windowVisibility
+}
+
+let currentValue
+function handleChange() {
+  let previousValue = currentValue
+  currentValue = select(store.getState())
+
+  if (previousValue !== currentValue) {
+    console.log(
+      'Some deep nested property changed from',
+      previousValue,
+      'to',
+      currentValue
+    )
+  }
+}
+
+store.subscribe(handleChange)
 
 const jsx = (
   <Provider store={store}>

@@ -4,12 +4,17 @@ import { connect } from 'react-redux';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
-// import { connected, disconnected } from '../actions/websocketConnetion';
-import { getMessages } from '../actions/getMessages';
-import { connected } from '../actions/connectionStatus';
+// My components
 import Layout from '../layout/layout';
 import List from '../list/list';
 import Send from '../send/send';
+import Head from '../helmet/head';
+
+// My actions
+// import { connected, disconnected } from '../actions/websocketConnetion';
+import { getMessages } from '../actions/getMessages';
+import { connected } from '../actions/connectionStatus';
+import { visible, hidden } from '../actions/windowVisibility';
 class App extends Component {
   constructor() {
     super()
@@ -18,13 +23,13 @@ class App extends Component {
     //   open: false,
     //   connected: false,
     // }
-    // this.socket = new ReconnectingWebSocket('ws://st-chat.shas.tel', null, { debug: false, reconnectInterval: 3000 });
-    this.socket = new WebSocket('ws://st-chat.shas.tel');
+    this.socket = new ReconnectingWebSocket('ws://st-chat.shas.tel', null, { debug: false, reconnectInterval: 3000 });
+    // this.socket = new WebSocket('ws://st-chat.shas.tel');
     this.socket.onopen = () => {
       this.props.dispatch(connected());
     }
     this.socket.onmessage = (e) => {
-      this.props.dispatch(getMessages({ messages: JSON.parse(e.data) }));
+      this.props.dispatch(getMessages({ messages: JSON.parse(e.data) })); 
     }
     // this.socket.onopen = () => {
     //   this.setState({
@@ -36,31 +41,31 @@ class App extends Component {
   // notify() {
   //   toast.info(`${this.props.lastMessage.from} : ${this.props.lastMessage.message}`);
   // }
-  notifyMe() {
-    // Let's check if the browser supports notifications
-    if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
-    }
+  // notifyMe() {
+  //   // Let's check if the browser supports notifications
+  //   if (!("Notification" in window)) {
+  //     alert("This browser does not support desktop notification");
+  //   }
 
-    // Let's check whether notification permissions have already been granted
-    else if (Notification.permission === "granted") {
-      // If it's okay let's create a notification
-      var notification = new Notification("Hi there!");
-    }
+  //   // Let's check whether notification permissions have already been granted
+  //   else if (Notification.permission === "granted") {
+  //     // If it's okay let's create a notification
+  //     var notification = new Notification("Hi there!");
+  //   }
 
-    // Otherwise, we need to ask the user for permission
-    else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then(function (permission) {
-        // If the user accepts, let's create a notification
-        if (permission === "granted") {
-          var notification = new Notification("Hi there!");
-        }
-      });
-    }
+  //   // Otherwise, we need to ask the user for permission
+  //   else if (Notification.permission !== "denied") {
+  //     Notification.requestPermission().then(function (permission) {
+  //       // If the user accepts, let's create a notification
+  //       if (permission === "granted") {
+  //         var notification = new Notification("Hi there!");
+  //       }
+  //     });
+  //   }
 
-    // At last, if the user has denied notifications, and you 
-    // want to be respectful there is no need to bother them any more.
-  }
+  // At last, if the user has denied notifications, and you 
+  // want to be respectful there is no need to bother them any more.
+  // }
 
   componentDidMount() {
     // this.socket.send(JSON.stringify({ from: this.props.user, message: this.props.sendMessage }))
@@ -69,6 +74,14 @@ class App extends Component {
     //     messages: JSON.parse(e.data).concat(this.state.messages)
     //   })
     // }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        this.props.dispatch(hidden());
+      } else {
+        this.props.dispatch(visible());
+      }
+      // console.log('visibility', document.hidden);
+    })
     Notification.requestPermission().then((result) => {
       if (result === 'denied') {
         console.log(result)
@@ -77,7 +90,10 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.lastMessage.time && (this.props.lastMessage.time - new Date().getTime() < 4000)) {
+    // console.log(this.socket)
+    // console.log(document.visibilityState)
+    // console.log(this.props.windowVisibility)
+    if (this.props.lastMessage.time && (this.props.lastMessage.time - new Date().getTime() < 1000) && !this.props.windowVisibility) {
       // this.notifyMe();
       // new Notification(`${this.props.lastMessage.from}: ${this.props.lastMessage.message}`);
       // this.notify();
@@ -95,6 +111,7 @@ class App extends Component {
     return (
       <>
         {/* <ToastContainer /> */}
+        <Head />
         <Layout>
           <List />
           <Send socket={this.socket} />
@@ -111,6 +128,7 @@ const mapStateProps = (state) => {
     user: state.user,
     messages: state.messages.messages,
     lastMessage: state.messages.lastMessage,
+    windowVisibility: state.windowVisibility,
   }
 };
 
