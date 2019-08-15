@@ -2,23 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import sendStyle from './send.module.scss';
-import { userMessage, sendMessage } from '../actions/userMessage';
+import { userMessage } from '../actions/userMessage';
+import { getOfflineMessages } from '../actions/offlineMessages';
 
 const Send = (props) => {
-// console.log('send', props.socket)
+  // console.log('send', props.socket)
   const handleChange = (e) => {
     props.dispatch(userMessage({ userMessage: e.target.value }));
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // props.dispatch(sendMessage({ sendMessage: props.userMessage }));
     props.dispatch(userMessage({ userMessage: '' }));
     if (props.connected) {
       props.socket.send(JSON.stringify({ from: props.user, message: props.userMessage }))
+    } else {
+      props.dispatch(getOfflineMessages({ offlineMessage: props.userMessage }))
     }
   }
-  
+
   return (
     <form
       className={sendStyle.sendForm}
@@ -36,10 +38,10 @@ const Send = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    // sendMessage: state.userMessage.sendMessage,
     userMessage: state.userMessage,
     user: state.user,
     connected: state.connected,
+    offlineMessages: state.offlineMessages,
   }
 }
 

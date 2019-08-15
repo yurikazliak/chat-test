@@ -14,6 +14,7 @@ import { connected, disconnected } from '../actions/connectionStatus';
 import { visible, hidden } from '../actions/windowVisibility';
 import { visibleTime, hiddenTime } from '../actions/visibilityTime';
 import { addNotifMessages, resetNotifMessages } from '../actions/notifyMessages';
+import { resetOfflineMessages } from '../actions/offlineMessages';
 
 class App extends Component {
   constructor() {
@@ -157,13 +158,16 @@ class App extends Component {
       }
     }
 
-
-    window.addEventListener('online', (e) => {
-      console.log('online')
+    window.addEventListener('online', () => {
       this.props.dispatch(connected());
+      if (this.props.offlineMessages.length > 0) {
+        this.props.offlineMessages.forEach(mess => {
+          this.socket.send(JSON.stringify({ from: this.props.user, message: mess }))          
+        });
+      }
+      this.props.dispatch(resetOfflineMessages());
     });
-    window.addEventListener('offline', (e) => {
-      console.log('offline')
+    window.addEventListener('offline', () => {
       this.props.dispatch(disconnected());
     });
   }
@@ -180,7 +184,7 @@ class App extends Component {
     // console.log('update')
     // console.log(this.socket)
     // console.log(document.visibilityState)
-    console.log(this.props);   
+    // console.log(this.props);   
   }
 
   render() {
@@ -220,7 +224,7 @@ class App extends Component {
 
 const mapStateProps = (state) => {
   return {
-    // sendMessage: state.userMessage.sendMessage,
+    // userMessage: state.userMessage,
     connection: state.connected,
     user: state.user,
     messages: state.messages.messages,
@@ -228,6 +232,7 @@ const mapStateProps = (state) => {
     windowVisibilityTime: state.windowVisibilityTime,
     lastMessage: state.notifyMessages.lastMessage,
     notifyMessages: state.notifyMessages.notif,
+    offlineMessages: state.offlineMessages,
   }
 };
 
