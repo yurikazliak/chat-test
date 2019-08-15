@@ -5,6 +5,7 @@ import laoyoutStyle from './layout.module.scss';
 import UserName from '../userName/userName';
 
 const laoyout = (props) => {
+
   const { children, user } = props;
   return (
     <>

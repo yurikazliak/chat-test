@@ -1,6 +1,6 @@
-const defaultUserName = localStorage.getItem('chatUserName') !== null ? localStorage.getItem('chatUserName') : 'user';
+const initialState = localStorage.getItem('chatUserName') !== null ? localStorage.getItem('chatUserName') : 'user';
 
-export default (state = defaultUserName, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'SET_USERNAME':
       return action.userName

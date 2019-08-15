@@ -14,27 +14,27 @@ const store = configureStore;
 //   console.log('from index.js', store.getState());
 // })
 
-function select(state) {
-  // return state.messages.messages
-  return state.windowVisibility
-}
+// function select(state) {
+//   // return state.messages.messages
+//   return state.notifyMessages
+// }
 
-let currentValue
-function handleChange() {
-  let previousValue = currentValue
-  currentValue = select(store.getState())
+// let currentValue
+// function handleChange() {
+//   let previousValue = currentValue
+//   currentValue = select(store.getState())
 
-  if (previousValue !== currentValue) {
-    console.log(
-      'Some deep nested property changed from',
-      previousValue,
-      'to',
-      currentValue
-    )
-  }
-}
+//   if (previousValue !== currentValue) {
+//     console.log(
+//       'Some deep nested property changed from',
+//       previousValue,
+//       'to',
+//       currentValue
+//     )
+//   }
+// }
 
-store.subscribe(handleChange)
+// store.subscribe(handleChange)
 
 const jsx = (
   <Provider store={store}>
