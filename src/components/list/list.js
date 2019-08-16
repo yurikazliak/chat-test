@@ -34,12 +34,12 @@ const List = (props) => {
                 </div>
                 <span className={listStyles.time}>
                   <>
-                    {DateTime.fromMillis(message.time).c.year}-
-              {DateTime.fromMillis(message.time).c.month}-
+                    {DateTime.fromMillis(message.time).c.year}.
+              {DateTime.fromMillis(message.time).c.month}.
               {DateTime.fromMillis(message.time).c.day}
                     {'   '}
-                    {DateTime.fromMillis(message.time).c.hour}-
-              {DateTime.fromMillis(message.time).c.minute}-
+                    {DateTime.fromMillis(message.time).c.hour}:
+              {DateTime.fromMillis(message.time).c.minute}:
               {DateTime.fromMillis(message.time).c.second}
                   </>
                 </span>
