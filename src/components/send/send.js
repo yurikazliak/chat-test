@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
 
 import sendStyle from './send.module.scss';
 import { userMessage } from '../actions/userMessage';
 import { getOfflineMessages } from '../actions/offlineMessages';
 
 const Send = (props) => {
-  // console.log('send', props.socket)
+
   const handleChange = (e) => {
     props.dispatch(userMessage({ userMessage: e.target.value }));
   }
@@ -26,12 +27,15 @@ const Send = (props) => {
       className={sendStyle.sendForm}
       onSubmit={handleSubmit}
     >
-      <input
-        className={sendStyle.message}
+      <TextField
+        label='Enter your message'
+        className={sendStyle.textField}
+        variant="filled"
         onChange={handleChange}
         value={props.userMessage}
         placeholder='Enter your message'
-        type='text' />
+        type='text'
+      />
     </form>
   )
 }
