@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.3.2",
+    "@material-ui/icons": "^4.2.1",
     "glamor": "^2.20.40",
     "luxon": "^1.17.2",
     "node-sass": "^4.12.0",

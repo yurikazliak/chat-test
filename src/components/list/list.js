@@ -20,7 +20,6 @@ const List = (props) => {
           .sort((a, b) => {
             return a.time < b.time ? -1 : 1;
           })
-          // .slice(-200)
           .map((message) => {
             return (
               <li
@@ -29,6 +28,9 @@ const List = (props) => {
               >
                 <div className={listStyles.from}>
                   {message.from}
+                </div>
+                <div className={listStyles.text}>
+                  {message.message}
                 </div>
                 <span className={listStyles.time}>
                   <>
@@ -41,9 +43,6 @@ const List = (props) => {
               {DateTime.fromMillis(message.time).c.second}
                   </>
                 </span>
-                <div className={listStyles.text}>
-                  {message.message}
-                </div>
               </li>
             )
           })}
@@ -54,7 +53,6 @@ const List = (props) => {
 
 const mapStateProps = (state) => {
   return {
-    // messages: state.connection.messages,
     messages: state.messages.messages,
     user: state.user,
   }
