@@ -54,9 +54,12 @@
     }
   }
   & .messageNew {
-    text-align: right;
     & .from {
       background-color: #7ad98f;
+      text-align: right;
+    }
+    & .time {
+      text-align: right;
     }
   }
 }

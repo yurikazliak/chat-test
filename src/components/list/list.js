@@ -13,6 +13,9 @@ const List = (props) => {
     width: '100%'
   });
 
+  const ulrRegExp = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+  const regexp = new RegExp(ulrRegExp);
+
   return (
     <ul className={listStyles.list}>
       <ScrollToBottom className={ROOT_CSS}>
@@ -30,7 +33,19 @@ const List = (props) => {
                   {message.from}
                 </div>
                 <div className={listStyles.text}>
-                  {message.message}
+
+                  {message.message.match(regexp) ? (
+                    <>{message.message.slice(0, message.message.indexOf(message.message.match(regexp)[0]))}
+                      <a href={message.message.match(regexp)[0]} target='_blank' rel="noopener noreferrer">{
+                        message.message.match(regexp)[0]
+                      }</a>
+                      {message.message.slice(message.message.indexOf(message.message.match(regexp)[0]) + message.message.match(regexp)[0].length)}
+                    </>
+                  ) : (
+                      <>{message.message}</>
+                    )
+                  }
+
                 </div>
                 <span className={listStyles.time}>
                   <>
