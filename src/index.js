@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import './index.css';
-import App from './components/app/App';
-import configureStore from './components/store/configureStore';
+import App from './app/App';
+import configureStore from './store/configureStore';
 
 const store = configureStore;
 
-const jsx = (
+const app = (
   <Provider store={store}>
     <App />
   </Provider>
 )
 
-ReactDOM.render(jsx, document.getElementById('root'));
+ReactDOM.render(app, document.getElementById('root'));

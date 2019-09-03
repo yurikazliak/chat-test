@@ -3,17 +3,17 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connect } from 'react-redux';
 
 // My components
-import Layout from '../layout/layout';
-import List from '../list/list';
-import Send from '../send/send';
+import Layout from '../components/layout/layout';
+import List from '../components/list/list';
+import Send from '../components/send/send';
 
 // My actions
-import { getMessages } from '../actions/getMessages';
-import { connected, disconnected } from '../actions/connectionStatus';
-import { visible, hidden } from '../actions/windowVisibility';
-import { visibleTime, hiddenTime } from '../actions/visibilityTime';
-import { addNotifMessages, resetNotifMessages } from '../actions/notifyMessages';
-import { resetOfflineMessages } from '../actions/offlineMessages';
+import { getMessages } from '../store/actions/getMessages';
+import { connected, disconnected } from '../store/actions/connectionStatus';
+import { visible, hidden } from '../store/actions/windowVisibility';
+import { visibleTime, hiddenTime } from '../store/actions/visibilityTime';
+import { addNotifMessages, resetNotifMessages } from '../store/actions/notifyMessages';
+import { resetOfflineMessages } from '../store/actions/offlineMessages';
 
 class App extends Component {
   constructor() {

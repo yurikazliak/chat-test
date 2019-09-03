@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 
 import sendStyle from './send.module.scss';
-import { userMessage } from '../actions/userMessage';
-import { getOfflineMessages } from '../actions/offlineMessages';
+import { userMessage } from '../../store/actions/userMessage';
+import { getOfflineMessages } from '../../store/actions/offlineMessages';
 
 const Send = (props) => {
 

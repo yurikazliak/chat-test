@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 
-import { setUserName } from '../actions/setUserName';
 import userNameStyles from './userName.module.scss';
+import { setUserName } from '../../store/actions/setUserName';
 
 const UserName = (props) => {
 
